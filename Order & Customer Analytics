@@ -1,0 +1,96 @@
+-- In this SQL, I am querying a database to quantify statistics about order and customer data.
+
+--How many orders were placed in January?
+
+SELECT COUNT(Quantity)
+FROM BIT_DB.JanSales
+WHERE orderID <> 'Order ID'
+AND length (orderID) = 6
+; 
+
+--How many of those orders were for an iPhone?
+
+SELECT COUNT(Quantity)
+FROM BIT_DB.JanSales
+WHERE Product = 'iPhone'
+AND orderID <> 'Order ID'
+AND length(orderID)=6
+;
+
+--Select the customer account numbers for all the orders that were placed in February.
+
+SELECT distinct acctnum FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales Feb
+ON cust.order_id = Feb.orderID
+WHERE order_ID <> 'Order ID'
+AND length (order_ID) = 6
+;
+
+--Which product was the cheapest one sold in January, and what was the price?
+
+/*SELECT distinct product, price 
+FROM BIT_DB.JanSales
+WHERE orderID <> 'Order ID'
+AND length (orderID) = 6
+ORDER BY price asc LIMIT 1;*/
+
+--or
+
+SELECT distinct Product,price FROM BIT_DB.JanSales
+WHERE price in (SELECT MIN(price) FROM BIT_DB.JanSales)
+AND Product <> ''
+AND Product <> 'Product'
+AND price <> ''
+AND price <>'Price Each'
+;
+
+--What is the total revenue for January?
+SELECT ROUND (SUM(quantity*price),2) AS total_revenue
+FROM BIT_DB.JanSales
+WHERE price <> ''
+AND price <>'Price Each'
+;
+
+--What is the total revenue for each product sold in January?
+SELECT product, sum(quantity)*price total_revenue
+FROM BIT_DB.JanSales
+WHERE Product <> ''
+AND Product <> 'Product'
+AND price <> ''
+AND price <>'Price Each'
+GROUP BY product
+;
+
+--What were the top 5 products that generated the highest revenue in March?
+SELECT product, sum(quantity)*price total_revenue
+FROM BIT_DB.MarSales
+WHERE Product <> ''
+AND Product <> 'Product'
+AND price <> ''
+AND price <>'Price Each'
+GROUP BY product
+ORDER BY total_revenue desc LIMIT 5
+;
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT Product, Quantity, SUM(Quantity)*price total_revenue 
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+AND orderID <> 'Order ID'
+AND length (orderID) = 6
+AND Product <> ''
+AND Product <> 'Product'
+AND price <> ''
+AND price <>'Price Each'
+GROUP BY Product
+; 
+
+--How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+SELECT count(DISTINCT customers.acctnum) num_customers, round(avg(quantity*price),2) average_spent
+FROM BIT_DB.customers
+RIGHT JOIN BIT_DB.FebSales
+ON customers.order_id = FebSales.orderID
+WHERE orderID <> 'Order ID'
+AND length (orderID) = 6
+AND FebSales.quantity > 2
+;
