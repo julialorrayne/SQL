@@ -1,4 +1,5 @@
 -- In this SQL, I am querying a database to quantify statistics about order and customer data.
+-- The following database was used for the analysis: https://www.dropbox.com/s/cvsasmtr8syq2c2/BIT_DB?dl=0
 
 --How many orders were placed in January?
 
