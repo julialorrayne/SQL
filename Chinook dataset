@@ -33,7 +33,7 @@ FROM chinook.customers
 WHERE Country != 'USA'
 ;
 
--- Customers from Brazil.
+-- Customers from Brazil(their full name and customer ID)
 SELECT FirstName, LastName, Country, CustomerId
 FROM chinook.customers
 WHERE Country = 'Brazil'
