@@ -27,12 +27,6 @@ GROUP BY genre
 ORDER BY total_revenue DESC LIMIT 1
 ;
 
-SELECT SUM(invoice_items.UnitPrice * invoice_items.Quantity) AS total_revenue, genres.Name AS genre
-FROM invoice_items
-LEFT JOIN chinook.tracks ON invoice_items.TrackId = tracks.TrackId
-LEFT JOIN chinook.genres ON tracks.GenreId = genres.GenreId
-GROUP BY genre;
-
 -- Customers (their full names, customer ID, and country) who are not in the US. 
 SELECT FirstName, LastName, Country, CustomerId
 FROM chinook.customers
