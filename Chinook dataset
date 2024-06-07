@@ -44,7 +44,7 @@ SELECT FirstName ||' '||LastName AS customer_full_name, BillingCountry, InvoiceD
 FROM chinook.customers
 LEFT JOIN chinook.invoices
 ON chinook.customers.CustomerId = chinook.invoices.CustomerId
-WHERE Country = 'Brazil'
+WHERE BillingCountry = 'Brazil'
 ;
 
 --Employees who are Sales Agents.
