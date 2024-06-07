@@ -75,7 +75,6 @@ LEFT JOIN chinook.customers
 ON invoices.CustomerId = customers.CustomerId 
 LEFT JOIN chinook.employees
 ON customers.SupportRepId = employees.employeeId
-GROUP BY Customers.CustomerId
 ;
 
 --How many Invoices were there in 2009?
