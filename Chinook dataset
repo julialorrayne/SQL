@@ -1,7 +1,5 @@
 --In this SQL code, I'm querying a dataset called Chinook, which represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers.
-# This project reveals insights about TV and Movie content hosted on Netflix. 
-#In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
---We're going to work with a dataset called chinook, which represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers.
+--This project reveals insights about TV and Movie content hosted on Netflix. 
 
 -- which countries are the top three customers?
 SELECT COUNT(distinct CustomerId) num_customers, country
